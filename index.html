@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>주택 폴리오 시공입찰DB</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brandMark">J</span><strong>폴리오</strong></div>
+    <nav><a>홈</a><a>건축계획</a><a>입지</a><a class="active">전문가</a><a>MY</a></nav>
+  </header>
+  <div class="subnav"><span>인허가 DB</span><span>전문가 DB</span><span>설계공모 DB</span><span class="active">시공입찰 DB</span><span>자재 DB</span></div>
+
+  <main class="page">
+    <section class="heading">
+      <div><h1>시공입찰 DB</h1><p>공고를 찾는 것을 넘어 실제 공사 수요와 다음 영업기회를 분석합니다.</p></div>
+      <div class="basisSwitch"><button class="active">프로젝트 기준</button><button>공고 기준</button></div>
+    </section>
+
+    <section class="modeTabs" id="modeTabs">
+      <button class="active" data-mode="all">전체 프로젝트 <small>12,482</small></button>
+      <button data-mode="bid">입찰 참여 <small>1,284</small></button>
+      <button data-mode="award">낙찰·계약 <small>837</small></button>
+      <button data-mode="sales">자재 영업기회 <small>3,291</small></button>
+      <button data-mode="saved">관심 프로젝트 <small>24</small></button>
+    </section>
+
+    <section class="toolbar">
+      <button class="filterIcon" id="openFilters" title="상세필터">☷</button>
+      <select><option>진행단계</option></select>
+      <select><option>지역</option></select>
+      <select><option>공종·면허</option></select>
+      <select><option>예정 공사비</option></select>
+      <select><option>입찰마감</option></select>
+      <select><option>발주처</option></select>
+      <select><option>건축용도</option></select>
+      <select><option>자재·스펙</option></select>
+      <select><option>우리 회사 적합도</option></select>
+      <label class="search"><span class="aiTag">AI</span><input id="search" placeholder="공사명, 발주처, 설계사, 시공사, 면허, 자재, 규격을 검색하세요" /></label>
+    </section>
+
+    <section class="viewbar">
+      <div class="savedCondition">저장조건: <b>수도권 교육시설 100억 이상</b> <button>알림 켜기</button></div>
+      <div class="viewActions">
+        <select id="sort"><option>추천순</option><option>마감 임박순</option><option>공사비 큰순</option><option>프로젝트 기회점수 높은순</option><option>우리회사 적합도 높은순</option><option>자재 영업기회 높은순</option><option>영업 타이밍 임박순</option></select>
+        <button>열 설정</button><button>지도 보기</button>
+        <div class="preset" id="preset"><button class="active" data-view="default">기본 보기</button><button data-view="bid">입찰 참여 보기</button><button data-view="sales">자재·영업 보기</button></div>
+      </div>
+    </section>
+
+    <section class="tableCard">
+      <table id="projectTable">
+        <thead id="tableHead"></thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <aside class="filterDrawer" id="filterDrawer" aria-hidden="true">
+    <header><strong>상세필터</strong><button id="closeFilters">×</button></header>
+    <div class="filterBody">
+      <details open><summary>공고 및 일정</summary><div class="filterGrid"><label>공고일<input type="date"></label><label>투찰 마감<input type="date"></label><label>개찰일<input type="date"></label><label>낙찰일<input type="date"></label><label>정정/재공고<select><option>전체</option><option>정정공고만</option><option>재공고만</option></select></label></div></details>
+      <details><summary>지역 및 프로젝트</summary><div class="filterGrid"><label>시·도<select><option>전체</option></select></label><label>시·군·구<select><option>전체</option></select></label><label>건축용도<select><option>전체</option></select></label><label>공사구분<select><option>신축/증축/개축/리모델링</option></select></label><label>연면적<input placeholder="최소 ㎡"></label><label>예정공사비<input placeholder="최소 억원"></label></div></details>
+      <details><summary>입찰 조건</summary><div class="checks"><label><input type="checkbox"> 지역제한</label><label><input type="checkbox"> 실적제한</label><label><input type="checkbox"> 공동도급</label><label><input type="checkbox"> 의무공동도급</label><label><input type="checkbox"> 입찰참가자격 사전심사</label><label><input type="checkbox"> 적격심사</label><label><input type="checkbox"> 현장설명</label><label><input type="checkbox"> 특허·신기술</label></div></details>
+      <details><summary>프로젝트 연결정보</summary><div class="checks"><label><input type="checkbox"> 설계공모 존재</label><label><input type="checkbox"> 당선안 존재</label><label><input type="checkbox"> 설계사 확인</label><label><input type="checkbox"> 유사 프로젝트 존재</label><label><input type="checkbox"> 공사원가 데이터 존재</label><label><input type="checkbox"> 주택지도 연결</label></div></details>
+      <details open><summary>실제 자재</summary><div class="filterGrid"><label>자재명<input placeholder="예: 시스템창호"></label><label>규격<input placeholder="예: 100T"></label><label>최소 수량<input placeholder="예: 500"></label><label>조달방식<select><option>전체</option><option>관급</option><option>사급</option><option>확인불가</option></select></label></div><div class="checks"><label><input type="checkbox"> 공사내역서 있음</label><label><input type="checkbox"> 물량내역서 있음</label><label><input type="checkbox"> 시방서 있음</label></div></details>
+      <details open><summary>AI 자재 영업기회</summary><div class="filterGrid"><label>추천 자재<input placeholder="예: 로이유리"></label><label>최소 기회점수<select><option>전체</option><option>70% 이상</option><option>80% 이상</option><option>90% 이상</option></select></label><label>추천 대상<select><option>전체</option><option>설계사</option><option>시공사</option><option>전문건설사</option><option>발주처</option></select></label></div><div class="checks"><label><input type="checkbox"> 공식 내역 미확인만</label><label><input type="checkbox"> 현재 영업 적기</label></div></details>
+      <details><summary>특이 스펙</summary><div class="checks"><label><input type="checkbox"> 제로에너지</label><label><input type="checkbox"> 녹색건축</label><label><input type="checkbox"> 내진</label><label><input type="checkbox"> 불연·준불연</label><label><input type="checkbox"> 고효율</label><label><input type="checkbox"> 특정모델</label><label><input type="checkbox"> 동등이상 허용</label></div></details>
+      <details><summary>낙찰 및 영업</summary><div class="checks"><label><input type="checkbox"> 낙찰자 확정</label><label><input type="checkbox"> 낙찰 후 30일 이내</label><label><input type="checkbox"> 착공 전</label><label><input type="checkbox"> 자재발주 예상</label><label><input type="checkbox"> 시공사 영업 추천</label><label><input type="checkbox"> 전문건설사 영업 추천</label></div></details>
+    </div>
+    <footer><button>초기화</button><button>검색조건 저장</button><button class="primary">이 조건으로 보기</button></footer>
+  </aside>
+
+  <div class="backdrop" id="backdrop"></div>
+  <aside class="detailDrawer" id="detailDrawer" aria-hidden="true">
+    <header><button id="closeDetail">×</button><div><button>☆</button><button>공유</button></div></header>
+    <div id="detailBody" class="detailBody"></div>
+    <footer id="detailFooter"><button>☆ 관심</button><button class="primary">영업기회 저장</button></footer>
+  </aside>
+
+  <div class="tooltip" id="tooltip"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
