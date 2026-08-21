@@ -1,0 +1,8 @@
+{
+  "name": "jootek-bid-db-prototype",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "test": "node --check app.js && node tests/smoke.js"
+  }
+}
